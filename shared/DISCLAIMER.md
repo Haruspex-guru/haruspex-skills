@@ -15,9 +15,13 @@ skill output must include. If you change it here, all skills update.
 > haruspex.guru.
 ```
 
-## Japanese (placeholder — TODO: replace with maintainer-supplied wording)
+## Japanese
 
-<!-- TODO: replace with legally-reviewed Japanese disclaimer text. -->
+This is a faithful translation of the English text above. It has not been
+reviewed by a Japanese securities lawyer; before public launch in Japan,
+maintainers should have a licensed advisor confirm the wording meets local
+disclosure requirements (and adjust if needed). The translation is published
+here so the JA skill has a working footer in v0.1.x.
 
 ```
 > **免責事項:** Haruspex のスコアは公開データから導出された定量的シグナルで

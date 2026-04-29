@@ -100,8 +100,9 @@ in Japanese.
 ```
 
 > **メンテナーへの注記 / Maintainer note:** 上記の日本語免責事項は
-> [`shared/DISCLAIMER.md`](../../shared/DISCLAIMER.md) のプレースホルダーに
-> 同期しています。法務レビュー後の正式な日本語版に置き換えてください。
+> [`shared/DISCLAIMER.md`](../../shared/DISCLAIMER.md) と同期しています。
+> 公開展開前に有資格の日本の金融アドバイザーに文言確認を依頼することを
+> 推奨します。
 
 ### 次元の選び方
 
