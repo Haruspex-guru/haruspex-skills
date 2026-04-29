@@ -1,0 +1,80 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-skills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run skill validation
+        run: bash scripts/validate-skills.sh
+
+      - name: Verify no live API keys committed
+        run: |
+          # Exclude this workflow + the PR template, which legitimately mention
+          # the pattern as a guard rule (not as a real key).
+          if grep -RIn --exclude-dir=.git \
+              --exclude=validate.yml \
+              --exclude=PULL_REQUEST_TEMPLATE.md \
+              --exclude=CONTRIBUTING.md \
+              "hrspx_live_[a-z0-9]" .; then
+            echo "::error::A live-looking Haruspex API key was found in committed files."
+            exit 1
+          fi
+          echo "No live API keys found."
+
+      - name: Verify no overclaiming about Claude
+        run: |
+          # Skills runtime references are fine; product-stack claims are not.
+          # This is a soft heuristic — flag suspicious phrasings for review.
+          # Exclude this workflow + PR template, which list the patterns as
+          # guard rules (not as actual claims).
+          patterns=(
+            "powered by Claude"
+            "powered by Anthropic"
+            "built on Claude"
+            "built on Anthropic"
+            "Haruspex uses Claude"
+            "Haruspex uses Anthropic"
+          )
+          fail=0
+          for p in "${patterns[@]}"; do
+            if grep -RIni --exclude-dir=.git --exclude-dir=node_modules \
+                --exclude=validate.yml \
+                --exclude=PULL_REQUEST_TEMPLATE.md \
+                "$p" .; then
+              echo "::error::Found phrasing that could be read as claiming Haruspex's product is built on Claude/Anthropic: '$p'"
+              fail=1
+            fi
+          done
+          exit $fail
+
+      - name: Verify JSON eval files parse
+        run: |
+          python3 -c "
+          import json, glob, sys
+          fail = 0
+          for f in sorted(glob.glob('eval/queries/*.json')):
+              try:
+                  data = json.load(open(f))
+                  assert isinstance(data, list), f'{f}: not a list'
+                  for i, q in enumerate(data):
+                      assert 'query' in q, f'{f}[{i}]: missing query'
+                      assert 'should_trigger' in q, f'{f}[{i}]: missing should_trigger'
+                  print(f'{f}: {len(data)} queries OK')
+              except Exception as e:
+                  print(f'::error::{f}: {e}')
+                  fail = 1
+          sys.exit(fail)
+          "

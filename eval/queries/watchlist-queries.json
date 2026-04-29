@@ -1,0 +1,25 @@
+[
+  { "query": "review my watchlist: AAPL MSFT GOOGL META AMZN NVDA TSLA", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "scan AAPL, NVDA, MSFT, TSLA, GOOGL", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "how are my stocks doing today", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "weekly portfolio review please", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "compare AAPL MSFT GOOGL", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "which of these is strongest: NVDA, AMD, AVGO, MU, INTC", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "rank these tickers AAPL TSLA MSFT", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "morning check on my list", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "daily watchlist update", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "scores for AAPL NVDA MSFT TSLA GOOGL META AMZN", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "give me the read on these: PLTR SNOW DDOG CRWD NET", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "biggest movers in my portfolio today", "should_trigger": true, "expected_skill": "haruspex-watchlist-review" },
+
+  { "query": "what do you think about NVDA?", "should_trigger": false, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "score on AAPL?", "should_trigger": false, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "i'm long NVDA because of AI demand", "should_trigger": false, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "ウォッチリスト確認：AAPL NVDA MSFT TSLA GOOGL", "should_trigger": false, "expected_skill": "haruspex-stock-analyst-ja" },
+
+  { "query": "explain ETFs to me", "should_trigger": false, "expected_skill": null },
+  { "query": "what's a good index fund", "should_trigger": false, "expected_skill": null },
+  { "query": "summarize this email", "should_trigger": false, "expected_skill": null },
+  { "query": "help me cook dinner", "should_trigger": false, "expected_skill": null },
+  { "query": "compare two job offers", "should_trigger": false, "expected_skill": null }
+]

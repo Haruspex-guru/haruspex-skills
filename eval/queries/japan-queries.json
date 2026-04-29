@@ -1,0 +1,25 @@
+[
+  { "query": "AAPLはどう？", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+  { "query": "NVDAのスコアは？", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+  { "query": "テスラを分析して", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+  { "query": "アップルはどう思う？", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+  { "query": "MSFTの評価を教えて", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+  { "query": "GOOGLの最近の動きは？", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+  { "query": "メタについて知りたい", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+  { "query": "AMZNのHaruspexスコアを見せて", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+  { "query": "エヌビディアの状況は？", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+  { "query": "NFLXは買い？(分析だけでいい)", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+  { "query": "AMDとNVDAを比べたい", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+  { "query": "PLTRはどう動いてる？", "should_trigger": true, "expected_skill": "haruspex-stock-analyst-ja" },
+
+  { "query": "what do you think about NVDA?", "should_trigger": false, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "review my watchlist: AAPL MSFT GOOGL META AMZN", "should_trigger": false, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "i'm long NVDA because of AI demand", "should_trigger": false, "expected_skill": "haruspex-thesis-tracker" },
+
+  { "query": "東京の天気は？", "should_trigger": false, "expected_skill": null },
+  { "query": "日本語の文法を教えて", "should_trigger": false, "expected_skill": null },
+  { "query": "このPDFを要約して", "should_trigger": false, "expected_skill": null },
+  { "query": "晩御飯のレシピを教えて", "should_trigger": false, "expected_skill": null },
+  { "query": "Pythonコードのレビューをして", "should_trigger": false, "expected_skill": null },
+  { "query": "翻訳して: hello world", "should_trigger": false, "expected_skill": null }
+]

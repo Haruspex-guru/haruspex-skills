@@ -1,0 +1,25 @@
+[
+  { "query": "i'm long NVDA because of AI capex demand. is the thesis still good?", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "i'm bullish on TSLA on FSD adoption", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "I bought MSFT for the Azure / AI growth story, is that holding up", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "is my thesis on AAPL still intact?", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "pressure-test my long on PLTR — i think they win the gov AI build-out", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "does the data support the view that META wins the AI ad cycle", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "i think AMZN benefits from rate cuts, do you see that in the data", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "I'm short LULU because of consumer slowdown. Still works?", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "owning AVGO for the custom ASIC story", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "i hold UNH because i think the regulatory overhang is overstated", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "long XOM as an inflation hedge — does the data back that", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "i'm long GOOGL on a regulatory tailwind thesis. is it holding", "should_trigger": true, "expected_skill": "haruspex-thesis-tracker" },
+
+  { "query": "what do you think about NVDA?", "should_trigger": false, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "review my watchlist", "should_trigger": false, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "私のNVDAテーゼはまだ有効？AI需要の話", "should_trigger": false, "expected_skill": "haruspex-stock-analyst-ja" },
+
+  { "query": "what's a good investment thesis to develop", "should_trigger": false, "expected_skill": null },
+  { "query": "explain the efficient market hypothesis", "should_trigger": false, "expected_skill": null },
+  { "query": "summarize Buffett's annual letter", "should_trigger": false, "expected_skill": null },
+  { "query": "help me write a thesis statement for my essay", "should_trigger": false, "expected_skill": null },
+  { "query": "what does it mean to be long a stock", "should_trigger": false, "expected_skill": null },
+  { "query": "i'm long on the day, anything to do?", "should_trigger": false, "expected_skill": null }
+]

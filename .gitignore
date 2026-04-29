@@ -1,0 +1,45 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node (in case tooling sneaks in)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Python (in case tooling sneaks in)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local env files — never commit
+.env
+.env.local
+*.local
+
+# Secrets — never commit
+*.pem
+*.key
+secrets/
+
+# Build/temp
+dist/
+build/
+tmp/
+.cache/
+
+# Claude
+.claude/local/
+.claude/settings.local.json
+.claude/

@@ -1,0 +1,26 @@
+[
+  { "query": "what do you think about NVDA?", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "score on AAPL?", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "rating for MSFT", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "analyze TSLA for me", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "deep dive on GOOGL", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "is META interesting right now", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "what's driving AMZN this week", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "tell me about Nvidia", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "thoughts on Amazon stock", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "should I look at Snowflake", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "give me the haruspex score for PLTR", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "is AMD looking good", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+  { "query": "what's the read on CRWD", "should_trigger": true, "expected_skill": "haruspex-stock-analyst" },
+
+  { "query": "review my watchlist: AAPL MSFT GOOGL META AMZN", "should_trigger": false, "expected_skill": "haruspex-watchlist-review" },
+  { "query": "i'm long NVDA because of AI demand, is that holding up?", "should_trigger": false, "expected_skill": "haruspex-thesis-tracker" },
+  { "query": "AAPLはどう？", "should_trigger": false, "expected_skill": "haruspex-stock-analyst-ja" },
+
+  { "query": "what's the weather in Tokyo?", "should_trigger": false, "expected_skill": null },
+  { "query": "explain how options spreads work", "should_trigger": false, "expected_skill": null },
+  { "query": "summarize this PDF for me", "should_trigger": false, "expected_skill": null },
+  { "query": "what's the bitcoin price", "should_trigger": false, "expected_skill": null },
+  { "query": "help me write a python script", "should_trigger": false, "expected_skill": null },
+  { "query": "how do I file my taxes", "should_trigger": false, "expected_skill": null }
+]
