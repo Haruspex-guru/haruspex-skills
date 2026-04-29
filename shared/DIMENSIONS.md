@@ -10,12 +10,6 @@ intentionally does **not** describe scoring methodology, weights, or the
 algorithmic combination of dimensions into the headline score — those are
 proprietary.
 
-> **Maintainer note:** these blurbs are written conservatively from the slug
-> names and from public product copy where available. The canonical
-> haruspex.guru wording should replace these as it is finalized. Lines flagged
-> with `<!-- TODO: align with canonical haruspex.guru copy -->` are
-> placeholders pending that pass.
-
 ## How dimensions work
 
 - **Range:** 0 to 100. Higher is more favorable for the stock on that dimension.
@@ -34,8 +28,6 @@ proprietary.
   retailers will not.
 
 ## The 16 dimensions
-
-<!-- TODO: align all blurbs below with canonical haruspex.guru copy -->
 
 ### `ai-exposure`
 Measures the company's positioning relative to the AI build-out — both as a

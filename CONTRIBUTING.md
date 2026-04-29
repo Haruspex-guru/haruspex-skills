@@ -76,7 +76,6 @@ Every `SKILL.md` must have:
 - The placeholder API key value in `shared/MCP_SETUP.md` (currently
   `hrspx_demo_public_REPLACE_ME`) must match the canonical demo key advertised
   in the `@haruspex/mcp-server` README. If those drift, fix here.
-- The dimension blurbs in `shared/DIMENSIONS.md` are written conservatively
-  and should be replaced with the canonical haruspex.guru copy when that copy
-  is finalized. Several entries are flagged with `<!-- TODO: align with
-  canonical haruspex.guru copy -->`.
+- The dimension descriptions in `shared/DIMENSIONS.md` should stay aligned
+  with the user-facing language used at haruspex.guru. Update both together
+  when product copy changes.
