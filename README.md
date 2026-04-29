@@ -25,63 +25,104 @@ Each skill is a folder containing a `SKILL.md` with YAML frontmatter, a
 `reference.md` for deeper docs, and an `examples.md` with full example
 dialogues using **real captured data**.
 
-## Quickstart — Claude Desktop
+## Surface support matrix
 
-1. Install `@haruspex/mcp-server`. Edit your
-   `claude_desktop_config.json`:
-   ```json
-   {
-     "mcpServers": {
-       "haruspex": {
-         "command": "npx",
-         "args": ["-y", "@haruspex/mcp-server"],
-         "env": { "HARUSPEX_API_KEY": "hrspx_demo_public_REPLACE_ME" }
-       }
-     }
-   }
-   ```
-2. Clone the skills into your Skills directory:
+| Surface | Skills | MCP | Status |
+|---|---|---|---|
+| **Claude Code** (terminal CLI) | ✅ filesystem `~/.claude/skills/` | ✅ `claude mcp add-json` | Fully tested |
+| **Claude.ai web** (browser) | ✅ ZIP upload via Settings → Customize → Skills | ✅ via Connectors | Supported |
+| **Claude API** (SDK) | ✅ bundle in request | ✅ pass server config | See Anthropic docs |
+| **Claude Desktop app** | ❌ user-installable skills not supported as of v0.1.0 | ✅ `claude_desktop_config.json` | MCP works; skills don't (use Claude Code instead) |
+| **Cursor / Windsurf** | ❌ Anthropic Agent Skills not natively supported | ✅ MCP works | MCP-only; no skills runtime |
+
+## Quickstart — Claude Code (recommended)
+
+This is the path we test against.
+
+1. **Install skills.** From this repo:
    ```bash
    git clone https://github.com/Haruspex-guru/haruspex-skills.git
-   cp -r haruspex-skills/skills/* ~/Library/Application\ Support/Claude/skills/
+   mkdir -p ~/.claude/skills
+   cp -r haruspex-skills/skills/* ~/.claude/skills/
    ```
-3. Restart Claude Desktop.
-4. Ask a single-ticker question: "What do you think about NVDA?" — the
-   `haruspex-stock-analyst` skill should auto-trigger.
-
-## Quickstart — Claude Code
-
-1. Set up `.claude/mcp.json` in your project (see [`shared/MCP_SETUP.md`](shared/MCP_SETUP.md)).
-2. Clone into the user-level skills directory:
+2. **Register the MCP server** at user scope (works in any project):
    ```bash
-   git clone https://github.com/Haruspex-guru/haruspex-skills.git ~/haruspex-skills
-   cp -r ~/haruspex-skills/skills/* ~/.claude/skills/
+   claude mcp add-json --scope user haruspex '{
+     "command": "npx",
+     "args": ["-y", "@haruspex/mcp-server"],
+     "env": { "HARUSPEX_API_KEY": "hrspx_demo_public_REPLACE_ME" }
+   }'
    ```
-3. Reload your workspace in Claude Code.
-4. Verify with `/mcp` and by asking a stock question.
+   Replace `hrspx_demo_public_REPLACE_ME` with your real key from
+   <https://haruspex.guru>.
+3. **Verify:**
+   ```bash
+   claude mcp list           # haruspex should show ✓ Connected
+   ```
+   Then in a Claude Code session:
+   ```
+   /mcp                      # browse Haruspex tools
+   /skills                   # see all 4 haruspex skills (✔ on)
+   ```
+4. **Try a query:**
+   ```
+   What do you think about NVDA?
+   ```
+   The `haruspex-stock-analyst` skill auto-triggers, calls the MCP tools, and
+   returns structured analysis with a verifiable share URL.
 
-## Quickstart — Claude.ai
+## Quickstart — Claude.ai (web)
 
-1. Open Claude.ai → Settings → Skills.
-2. Upload each skill folder from `skills/` as a new skill.
-3. Configure `@haruspex/mcp-server` in the appropriate MCP integration
-   surface.
+1. **Enable code execution** in Claude.ai if you haven't already
+   (Settings → Capabilities).
+2. **Package each skill as a ZIP.** From this repo:
+   ```bash
+   cd skills
+   for d in */; do (cd "$d" && zip -r "../${d%/}.zip" .); done
+   ```
+   Produces 4 ZIPs in the `skills/` directory.
+3. **Upload each ZIP:** claude.ai → Settings → Customize → Skills → "+" →
+   Upload a skill. Repeat for all four.
+4. **Configure `@haruspex/mcp-server`** via Connectors (the Connectors UI is
+   separate from local Desktop config). Use your Haruspex API key.
+5. **Try a query** in any chat: "What do you think about NVDA?"
 
-## Quickstart — Claude API
+> Heads-up: skills uploaded to claude.ai are subject to Anthropic's review
+> guidelines for third-party content. "Only install skills from trusted
+> sources" applies — Haruspex skills do not execute arbitrary code, but
+> users should still review the SKILL.md files before installing.
 
-The Claude API supports skills via the
-[Skills API](https://docs.anthropic.com/en/docs/agents-and-tools/agent-skills/overview).
-Bundle the skill directory and pass it to your agent runtime alongside the
-MCP server connection. See the official docs for current syntax.
+## Quickstart — Claude API / SDK
+
+The Claude API supports Agent Skills programmatically. Bundle the skill
+directories with your request and pass the MCP server configuration
+alongside. See Anthropic's official Skills API docs for current syntax.
+
+## Claude Desktop — current limitation
+
+The native Claude Desktop app does **not** load user-installable filesystem
+skills as of v0.1.0 of this repo (April 2026). Desktop's skills runtime
+currently only surfaces a built-in set (docx, pdf, pptx, etc.).
+
+The MCP server side does work in Claude Desktop — see
+[`shared/MCP_SETUP.md`](shared/MCP_SETUP.md) for `claude_desktop_config.json`
+setup. But without a skills runtime, you'd be left calling MCP tools
+freeform rather than getting the structured workflow these skills enforce.
+
+**For Desktop users today: install Claude Code and use it from your
+terminal**, or use claude.ai web with the ZIP upload flow above. Anthropic
+may add filesystem-skills support to Desktop later; this repo will update
+when that ships.
 
 ## Prerequisites
 
-All skills require **`@haruspex/mcp-server`** to be installed and connected.
-Full install instructions for Claude Desktop, Claude Code, Cursor, and
-Windsurf are in [`shared/MCP_SETUP.md`](shared/MCP_SETUP.md).
+- A Haruspex API key — sign up at <https://haruspex.guru>. **Never commit
+  your API key to a repository.**
+- One of: Claude Code, Claude.ai web, or the Claude API.
+- Node.js 18+ if you're running `@haruspex/mcp-server` via `npx`.
 
-You'll also need a Haruspex API key. Get one at <https://haruspex.guru>.
-**Never commit your API key to a repository.**
+Full per-surface MCP setup details live in
+[`shared/MCP_SETUP.md`](shared/MCP_SETUP.md).
 
 ## Compliance & disclaimer
 
