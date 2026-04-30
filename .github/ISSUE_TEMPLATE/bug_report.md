@@ -34,7 +34,7 @@ If possible, paste the full Claude output as well (redact anything sensitive).
 ## Environment
 
 - Claude client (Desktop / Code / Cursor / Windsurf / Claude.ai / API):
-- `@haruspex/mcp-server` version: `npx -y @haruspex/mcp-server@latest --version` if you can run it
+- `@haruspex-guru/mcp-server` version: `npx -y @haruspex-guru/mcp-server@latest --version` if you can run it
 - Skills installed (list them):
 
 ## Compliance breach?

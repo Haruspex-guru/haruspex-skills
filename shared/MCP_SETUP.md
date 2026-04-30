@@ -1,10 +1,10 @@
-# Installing `@haruspex/mcp-server`
+# Installing `@haruspex-guru/mcp-server`
 
 The skills in this repository are instructions; they do not call the Haruspex
-API directly. The data path runs through the **`@haruspex/mcp-server`** MCP
+API directly. The data path runs through the **`@haruspex-guru/mcp-server`** MCP
 server, which exposes the Haruspex API as a set of tools that Claude can call.
 
-If `@haruspex/mcp-server` is not installed and connected, every skill in this
+If `@haruspex-guru/mcp-server` is not installed and connected, every skill in this
 repo will detect that, output the install instructions below, and stop.
 
 ## Get an API key
@@ -14,12 +14,12 @@ repo will detect that, output the install instructions below, and stop.
 3. Keep the key in a local config file. **Never commit it to a repository.**
 
 For initial testing, the public demo key advertised in the
-`@haruspex/mcp-server` README may be used (subject to that key's rate
+`@haruspex-guru/mcp-server` README may be used (subject to that key's rate
 limits). The placeholder used throughout this file is
 `hrspx_demo_public_REPLACE_ME`.
 
 > **Maintainer note:** the placeholder string above must match the canonical
-> demo-key string used in the `@haruspex/mcp-server` README. If the upstream
+> demo-key string used in the `@haruspex-guru/mcp-server` README. If the upstream
 > README changes, update this file. See `CONTRIBUTING.md`.
 
 ## Surface compatibility, at a glance
@@ -49,7 +49,7 @@ User-scope (works in every project):
 ```bash
 claude mcp add-json --scope user haruspex '{
   "command": "npx",
-  "args": ["-y", "@haruspex/mcp-server"],
+  "args": ["-y", "@haruspex-guru/mcp-server"],
   "env": { "HARUSPEX_API_KEY": "hrspx_demo_public_REPLACE_ME" }
 }'
 ```
@@ -96,7 +96,7 @@ config files. Open Settings → Connectors → Add custom server. Use the same
 shape:
 
 - **Command:** `npx`
-- **Arguments:** `-y @haruspex/mcp-server`
+- **Arguments:** `-y @haruspex-guru/mcp-server`
 - **Environment:** `HARUSPEX_API_KEY=<your key>`
 
 Save. The Haruspex tools become available in your chats. Skills uploaded via
@@ -122,7 +122,7 @@ Add the `haruspex` entry under `mcpServers`:
   "mcpServers": {
     "haruspex": {
       "command": "npx",
-      "args": ["-y", "@haruspex/mcp-server"],
+      "args": ["-y", "@haruspex-guru/mcp-server"],
       "env": { "HARUSPEX_API_KEY": "hrspx_demo_public_REPLACE_ME" }
     }
   }
@@ -150,7 +150,7 @@ Cursor reads MCP config from `~/.cursor/mcp.json` (global) or
   "mcpServers": {
     "haruspex": {
       "command": "npx",
-      "args": ["-y", "@haruspex/mcp-server"],
+      "args": ["-y", "@haruspex-guru/mcp-server"],
       "env": { "HARUSPEX_API_KEY": "hrspx_demo_public_REPLACE_ME" }
     }
   }

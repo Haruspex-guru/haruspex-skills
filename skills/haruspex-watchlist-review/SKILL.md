@@ -33,7 +33,7 @@ Defer to a sister skill if:
 
 ## Prerequisites
 
-This skill requires `@haruspex/mcp-server` to be installed and connected.
+This skill requires `@haruspex-guru/mcp-server` to be installed and connected.
 **First action: verify the MCP tools are available.**
 
 If `get_batch_scores` is not available, output the install instructions from

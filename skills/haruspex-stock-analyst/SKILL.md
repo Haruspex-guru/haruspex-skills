@@ -8,7 +8,7 @@ description: Fundamental and signals analysis for a single stock ticker, powered
 ## What this skill does
 
 Runs a structured single-ticker analysis using the Haruspex API via the
-`@haruspex/mcp-server` MCP server. The analysis covers: the headline score,
+`@haruspex-guru/mcp-server` MCP server. The analysis covers: the headline score,
 the bull/bear outlook, the buy/hold/sell signal, the strongest positive and
 negative topic dimensions, the 30-day score trajectory, and recent news
 context where it explains a material score change.
@@ -35,7 +35,7 @@ Defer to a sister skill if:
 
 ## Prerequisites
 
-This skill requires `@haruspex/mcp-server` to be installed and connected.
+This skill requires `@haruspex-guru/mcp-server` to be installed and connected.
 **First action: verify the MCP tools are available.**
 
 If the tools `get_stock_score`, `get_stock_score_history`, `search_stocks`,

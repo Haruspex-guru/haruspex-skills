@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-04-30
+
+### Changed
+- Renamed all references to the MCP server package from `@haruspex/mcp-server`
+  to `@haruspex-guru/mcp-server`, matching the actual published npm package
+  ([npmjs.com/package/@haruspex-guru/mcp-server](https://www.npmjs.com/package/@haruspex-guru/mcp-server)).
+  10 files updated. End-to-end install path (`npx -y @haruspex-guru/mcp-server`)
+  re-tested in Claude Code: skill triggering and MCP connection both verified.
+
 ## [0.1.1] - 2026-04-29
 
 ### Changed
@@ -27,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `haruspex-stock-analyst-ja` — Japanese-language flagship variant for JP traders trading NYSE/NASDAQ
 - `shared/DIMENSIONS.md` — plain-English glossary of the 16 Haruspex topic dimensions
 - `shared/DISCLAIMER.md` — canonical compliance disclaimer footer
-- `shared/MCP_SETUP.md` — `@haruspex/mcp-server` install instructions
+- `shared/MCP_SETUP.md` — `@haruspex-guru/mcp-server` install instructions
 - `eval/queries/` — trigger-accuracy query sets per skill
 - `scripts/validate-skills.sh` — local frontmatter + structure validation
 - `.github/workflows/validate.yml` — CI validation on PR/push

@@ -39,7 +39,7 @@ in Japanese.
 
 ## 前提条件 / Prerequisites
 
-このスキルは `@haruspex/mcp-server` のインストールと接続が必要です。
+このスキルは `@haruspex-guru/mcp-server` のインストールと接続が必要です。
 **最初の動作: MCP ツールが利用可能であることを確認する。**
 
 利用できない場合は、[`shared/MCP_SETUP.md`](../../shared/MCP_SETUP.md) の

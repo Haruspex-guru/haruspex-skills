@@ -8,7 +8,7 @@ Haruspex 16-dimension scoring system and ship the analysis workflows traders
 actually use day-to-day — single-ticker reads, watchlist scans, thesis
 checks, and a Japanese-language flagship variant.
 
-The skills depend on **`@haruspex/mcp-server`** for live data. Without the MCP
+The skills depend on **`@haruspex-guru/mcp-server`** for live data. Without the MCP
 server installed, the skills will detect that, output install instructions,
 and stop — they will never fabricate analysis.
 
@@ -49,7 +49,7 @@ This is the path we test against.
    ```bash
    claude mcp add-json --scope user haruspex '{
      "command": "npx",
-     "args": ["-y", "@haruspex/mcp-server"],
+     "args": ["-y", "@haruspex-guru/mcp-server"],
      "env": { "HARUSPEX_API_KEY": "hrspx_demo_public_REPLACE_ME" }
    }'
    ```
@@ -83,7 +83,7 @@ This is the path we test against.
    Produces 4 ZIPs in the `skills/` directory.
 3. **Upload each ZIP:** claude.ai → Settings → Customize → Skills → "+" →
    Upload a skill. Repeat for all four.
-4. **Configure `@haruspex/mcp-server`** via Connectors (the Connectors UI is
+4. **Configure `@haruspex-guru/mcp-server`** via Connectors (the Connectors UI is
    separate from local Desktop config). Use your Haruspex API key.
 5. **Try a query** in any chat: "What do you think about NVDA?"
 
@@ -119,7 +119,7 @@ when that ships.
 - A Haruspex API key — sign up at <https://haruspex.guru>. **Never commit
   your API key to a repository.**
 - One of: Claude Code, Claude.ai web, or the Claude API.
-- Node.js 18+ if you're running `@haruspex/mcp-server` via `npx`.
+- Node.js 18+ if you're running `@haruspex-guru/mcp-server` via `npx`.
 
 Full per-surface MCP setup details live in
 [`shared/MCP_SETUP.md`](shared/MCP_SETUP.md).

@@ -17,7 +17,7 @@ Do **not** open public GitHub issues for security-sensitive reports.
 
 This repository contains **skills**: markdown instructions that Claude reads and
 follows. Skills do not execute code, do not handle API keys, and do not make
-network requests directly. The data path runs through `@haruspex/mcp-server`,
+network requests directly. The data path runs through `@haruspex-guru/mcp-server`,
 which is a separate package with its own security policy.
 
 The most plausible threat model for this repository is therefore **prompt
@@ -27,7 +27,7 @@ bypass the compliance rules, please report it.
 
 ## Out of scope
 
-- Vulnerabilities in `@haruspex/mcp-server` — report at that repository.
+- Vulnerabilities in `@haruspex-guru/mcp-server` — report at that repository.
 - Vulnerabilities in the Haruspex API — report at security@haruspex.guru.
 - General Claude / Anthropic platform issues — report to Anthropic directly.
 

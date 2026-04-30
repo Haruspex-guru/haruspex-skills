@@ -20,7 +20,7 @@ be tweaks to skill descriptions, examples, or eval queries.
 - Improvements to skill `description` fields that demonstrably improve
   triggering accuracy (include eval results in the PR).
 - Better examples in `examples.md` files — but only if the example uses **real
-  captured data** from a real `@haruspex/mcp-server` call. Fabricated tickers,
+  captured data** from a real `@haruspex-guru/mcp-server` call. Fabricated tickers,
   scores, or share URLs will be rejected.
 - Refinements to the dimension glossary in `shared/DIMENSIONS.md` that bring
   language closer to what is publicly documented at haruspex.guru.
@@ -75,7 +75,7 @@ Every `SKILL.md` must have:
 
 - The placeholder API key value in `shared/MCP_SETUP.md` (currently
   `hrspx_demo_public_REPLACE_ME`) must match the canonical demo key advertised
-  in the `@haruspex/mcp-server` README. If those drift, fix here.
+  in the `@haruspex-guru/mcp-server` README. If those drift, fix here.
 - The dimension descriptions in `shared/DIMENSIONS.md` should stay aligned
   with the user-facing language used at haruspex.guru. Update both together
   when product copy changes.
