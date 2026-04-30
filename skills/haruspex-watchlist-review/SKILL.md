@@ -143,7 +143,7 @@ captured data.
   logic, threshold tuning.
 - [`examples.md`](examples.md) — real example dialogues.
 - [`../../shared/DIMENSIONS.md`](../../shared/DIMENSIONS.md) — canonical
-  16-dimension glossary.
+  multi-dimension glossary.
 - [`../../shared/DISCLAIMER.md`](../../shared/DISCLAIMER.md) — canonical
   disclaimer footer.
 - [`../../shared/MCP_SETUP.md`](../../shared/MCP_SETUP.md) — MCP install

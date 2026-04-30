@@ -4,7 +4,7 @@
 
 This repository packages a small, focused set of [Anthropic Agent Skills](https://github.com/anthropics/skills)
 that turn Claude into a stock-intelligence assistant. The skills wrap the
-Haruspex 16-dimension scoring system and ship the analysis workflows traders
+Haruspex multi-dimension scoring system and ship the analysis workflows traders
 actually use day-to-day — single-ticker reads, watchlist scans, thesis
 checks, and a Japanese-language flagship variant.
 
@@ -142,7 +142,7 @@ purposes only.
 
 ## Topic dimensions
 
-The Haruspex score is a composite of 16 topic dimensions (e.g. `competitors`,
+The Haruspex score is a composite of topic dimensions (e.g. `competitors`,
 `earnings`, `supplychain`, `us_china_official`). Plain-English descriptions of
 all 16 are in [`shared/DIMENSIONS.md`](shared/DIMENSIONS.md). The scoring
 methodology itself is proprietary and intentionally not documented here.

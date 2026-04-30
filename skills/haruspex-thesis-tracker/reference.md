@@ -6,25 +6,33 @@ This table is a starting prior. Always think about whether the specific
 thesis the user stated maps cleanly to these dimensions, or needs a
 custom mapping.
 
-| Thesis archetype                              | Primary dimensions                                          | Predicted direction (high score is supportive unless noted) |
-|-----------------------------------------------|-------------------------------------------------------------|------------------------------------------------------------|
-| AI capex / AI demand tailwind                 | `ai-exposure`, `competitors`, `supplychain`                  | high or rising                                              |
-| Earnings growth / beat-and-raise              | `earnings`, `management`                                     | high or rising                                              |
-| Regulatory tailwind                           | `regulatory`, `macro`                                         | high or rising                                              |
-| Regulatory headwind they'll survive           | `regulatory`, `management`                                    | regulatory may be low; management should be high            |
-| Macro / rates beneficiary                     | `macro`, `earnings`, `institutional`                          | high or rising                                              |
-| Geopolitical hedge or insulation              | `us_china_official`, `us_china_unofficial`, `macro`           | high (= less geopolitical pressure)                         |
-| China exposure (positive)                     | `us_china_official`, `us_china_unofficial`                     | low (= elevated exposure) but trajectory should be rising   |
-| Open-source / dev ecosystem moat              | `github-activity`, `competitors`                              | high or rising                                              |
-| IP / patent moat                              | `patents`, `competitors`                                      | high or rising                                              |
-| Insider conviction                            | `insider-trading`                                             | high or rising                                              |
-| Institutional accumulation                    | `institutional`                                               | high or rising                                              |
-| ESG / climate-aligned investment              | `esg`, `climate-risk`                                         | high                                                        |
-| Climate-resilient / low-climate-risk          | `climate-risk`                                                | high (= low risk)                                           |
-| Diversified / low concentration risk          | `concentration-risk`                                          | high (= diversified)                                        |
-| Supply-chain advantaged                       | `supplychain`, `concentration-risk`                            | high                                                        |
-| Management quality / capital allocation       | `management`, `earnings`, `institutional`                     | high or rising                                              |
-| Competitive moat / pricing power              | `competitors`, `earnings`                                     | high or rising                                              |
+| Thesis archetype                              | Primary dimensions                                                   | Predicted direction (high score is supportive unless noted) |
+|-----------------------------------------------|----------------------------------------------------------------------|------------------------------------------------------------|
+| AI capex / AI demand tailwind                 | `ai-exposure`, `competitors`, `supplychain`                           | high or rising                                              |
+| Earnings growth / beat-and-raise              | `earnings`, `fundamentals`, `management`                              | high or rising                                              |
+| Strong fundamentals / financial health        | `fundamentals`, `earnings`                                            | high or rising                                              |
+| Regulatory tailwind                           | `regulatory`, `macro`                                                  | high or rising                                              |
+| Regulatory headwind they'll survive           | `regulatory`, `management`                                             | regulatory may be low; management should be high            |
+| Macro / rates beneficiary                     | `macro`, `earnings`, `institutional`                                   | high or rising                                              |
+| Geopolitical hedge or insulation              | `geopolitical`, `macro`                                                | high (= less geopolitical pressure)                         |
+| China exposure (positive contrarian)          | `geopolitical`, `competitors`                                          | low (= elevated exposure) but trajectory should be rising   |
+| Open-source / dev ecosystem moat              | `github-activity`, `competitors`                                       | high or rising                                              |
+| IP / patent moat                              | `patents`, `competitors`                                               | high or rising                                              |
+| Insider conviction                            | `insider-trading`                                                      | high or rising                                              |
+| Institutional accumulation                    | `institutional`                                                        | high or rising                                              |
+| ESG / climate-aligned investment              | `esg`, `climate-risk`                                                  | high                                                        |
+| Climate-resilient / low-climate-risk          | `climate-risk`                                                         | high (= low risk)                                           |
+| Diversified / low concentration risk          | `concentration-risk`                                                   | high (= diversified)                                        |
+| Supply-chain advantaged                       | `supplychain`, `concentration-risk`                                    | high                                                        |
+| Management quality / capital allocation       | `management`, `earnings`, `institutional`                              | high or rising                                              |
+| Competitive moat / pricing power              | `competitors`, `earnings`                                              | high or rising                                              |
+| Hiring momentum / talent gravity              | `job-market`, `management`, `competitors`                              | high or rising                                              |
+| Sentiment / retail-led recovery               | `sentiment`, `options-flow`, `short-interest`                          | high or rising                                              |
+| Short squeeze setup                           | `short-interest`, `options-flow`, `sentiment`                          | high or rising on `short-interest` (favorable for longs)    |
+| Options-driven momentum                       | `options-flow`, `technical`, `sentiment`                                | high or rising                                              |
+| Technical breakout / momentum                 | `technical`, `options-flow`                                            | high or rising                                              |
+| Liquidity / quality-of-execution thesis       | `microstructure`, `institutional`                                       | high or rising                                              |
+| Crypto-correlated / blockchain exposure       | `crypto`, `technical`                                                   | direction matches the user's crypto stance                  |
 
 ## How to read the dimensions for a thesis
 

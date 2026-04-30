@@ -1,6 +1,6 @@
 ---
 name: haruspex-stock-analyst-ja
-description: Japanese-language stock analysis for US-listed equities (NYSE/NASDAQ), powered by Haruspex's 16-dimension scoring system. Use this skill whenever the user writes the query in Japanese (any input containing hiragana, katakana, or kanji) and is asking about a stock — including phrases like "[TICKER]はどう？", "[TICKER]の評価は？", "アップルはどう思う？", "テスラを分析して", "NVDAのスコアは？" — even when the user mixes Japanese and English. This is the default skill for any Japanese-language single-ticker stock question. The analysis universe is US-listed stocks; this skill does NOT cover Japan-listed (4-digit .T) symbols. Defer to haruspex-stock-analyst when input is in English.
+description: Japanese-language stock analysis for US-listed equities (NYSE/NASDAQ), powered by Haruspex's multi-dimension scoring system. Use this skill whenever the user writes the query in Japanese (any input containing hiragana, katakana, or kanji) and is asking about a stock — including phrases like "[TICKER]はどう？", "[TICKER]の評価は？", "アップルはどう思う？", "テスラを分析して", "NVDAのスコアは？" — even when the user mixes Japanese and English. This is the default skill for any Japanese-language single-ticker stock question. The analysis universe is US-listed stocks; this skill does NOT cover Japan-listed (4-digit .T) symbols. Defer to haruspex-stock-analyst when input is in English.
 ---
 
 # Haruspex Stock Analyst — 日本語版

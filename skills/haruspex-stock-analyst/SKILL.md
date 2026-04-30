@@ -1,6 +1,6 @@
 ---
 name: haruspex-stock-analyst
-description: Fundamental and signals analysis for a single stock ticker, powered by Haruspex's 16-dimension scoring system. Use this skill whenever the user asks about a specific stock, mentions a company they're considering as an investment, asks "what do you think about [TICKER]?", asks for analysis or a deep dive on a stock, asks whether a stock looks good or bad, asks for the score or rating of a company, or wants to understand what's driving a stock's performance — even if they don't explicitly mention Haruspex. This is the default skill for any single-ticker stock question.
+description: Fundamental and signals analysis for a single stock ticker, powered by Haruspex's multi-dimension scoring system. Use this skill whenever the user asks about a specific stock, mentions a company they're considering as an investment, asks "what do you think about [TICKER]?", asks for analysis or a deep dive on a stock, asks whether a stock looks good or bad, asks for the score or rating of a company, or wants to understand what's driving a stock's performance — even if they don't explicitly mention Haruspex. This is the default skill for any single-ticker stock question.
 ---
 
 # Haruspex Stock Analyst
@@ -116,7 +116,7 @@ The recent move is driven by the macro and competitors dimensions."]
   for this ticker" or similar.
 - For each surfaced dimension, write a one-line plain-English gloss. See
   [`../../shared/DIMENSIONS.md`](../../shared/DIMENSIONS.md) for the
-  canonical descriptions of all 16 dimensions and what high/low means on
+  canonical descriptions of all topic dimensions and what high/low means on
   each.
 
 ## Compliance rules (NEVER VIOLATE)
@@ -149,7 +149,7 @@ The recent move is driven by the macro and competitors dimensions."]
 - [`examples.md`](examples.md) — full example dialogues with real captured
   data.
 - [`../../shared/DIMENSIONS.md`](../../shared/DIMENSIONS.md) — canonical
-  16-dimension glossary.
+  multi-dimension glossary.
 - [`../../shared/DISCLAIMER.md`](../../shared/DISCLAIMER.md) — canonical
   disclaimer footer wording.
 - [`../../shared/MCP_SETUP.md`](../../shared/MCP_SETUP.md) — how to install

@@ -12,108 +12,181 @@ proprietary.
 
 ## How dimensions work
 
-- **Range:** 0 to 100. Higher is more favorable for the stock on that dimension.
-- **Direction:** a higher score on a *risk* dimension (e.g. `concentration-risk`,
-  `climate-risk`) means **less risk**, not more risk. A high climate-risk score
-  is a stock with low climate exposure. A low climate-risk score is a stock
-  with high climate exposure.
+- **Range:** 0 to 100. Higher is more favorable for the stock on that
+  dimension.
+- **Direction:** every dimension follows the same convention —
+  **higher score = more favorable**. For risk-themed dimensions
+  (`climate-risk`, `concentration-risk`, `regulatory`, `geopolitical`,
+  `supplychain`, `esg`), this means higher score = **less risk** on that
+  axis. None of the 23 dimensions break this convention.
 - **Change field:** every dimension also reports a `change` value — the delta
   versus the previous reading. Negative `change` means the dimension is
   trending unfavorably; positive means favorably.
+- **Direction label:** the API also exposes a derived 3-state label per
+  dimension (`bullish` / `neutral` / `bearish`) alongside the numeric score.
 - **Zero values:** a dimension scoring exactly `0` typically means **data
-  unavailable** for that dimension on that ticker, not "actually zero." Skills
-  should call this out rather than treat it as a real low score.
-- **Universe:** not every dimension is equally informative for every ticker.
-  Software companies will see strong signal in `github-activity`; physical
-  retailers will not.
+  unavailable** for that dimension on that ticker, not "actually zero."
+  Skills should call this out rather than treat it as a real low score.
+- **Conditional dimensions:** not every dimension is computed for every
+  ticker. Some are gated by sector, region, or explicit symbol allowlists
+  (see "Applicability" notes below). When a dimension does not apply to a
+  given ticker, it is simply absent from the response — not zero, not
+  missing-error.
 
-## The 16 dimensions
+## Active dimension set (23)
+
+The Haruspex API surfaces **23 topic dimensions**. Coverage rolled out
+progressively: the original 16 (around v0.1 of this skills repo) covered
+fundamentals + governance + geopolitics; the next 7 (around v0.2) added
+market-microstructure and additional thematic axes (sentiment, options flow,
+short interest, hiring, crypto, etc.). The full canonical set is below.
+
+> **Note on response surface:** the live API may return a subset of the 23
+> for any given ticker, depending on sector and region applicability (see
+> "Applicability" per dimension). Skills should iterate over whatever
+> `topicScores` keys come back, not assume all 23 are present. Skills should
+> also treat the canonical list here as **the universe of slugs that may
+> appear**, and gracefully ignore any new slug the API may add later.
 
 ### `ai-exposure`
-Measures the company's positioning relative to the AI build-out — both as a
-beneficiary of AI demand and as a candidate for AI-driven disruption. A high
-score indicates favorable AI positioning. A low score indicates exposure to
-displacement or weak participation in AI-driven growth.
+AI adoption signals from SEC filings, patent activity, and automation risk
+analysis.
+**Applicability:** US-listed equities; required computation for an internal
+strategic-symbol allowlist.
 
 ### `climate-risk`
-Measures the company's exposure to climate-related operational and regulatory
-risk. A high score indicates **lower** climate-related risk to the business.
+Physical climate hazard exposure, facility vulnerability, and transition
+readiness analysis. Higher score = lower climate-related risk.
+**Applicability:** US-listed; Energy / Utilities / Real Estate / Materials /
+Industrials sectors.
 
 ### `competitors`
-Measures the company's competitive position within its industry — market
-share dynamics, pricing power, and relative growth versus peers. A high score
-indicates a strengthening competitive position.
+Market share pressure and competitor dynamics. Higher score = strengthening
+competitive position.
 
 ### `concentration-risk`
-Measures concentration in customers, suppliers, geography, or product mix.
-A high score indicates **lower** concentration risk (more diversified). A low
-score flags vulnerability to a single customer, region, or product line.
+Customer, supplier, geographic, and key-person concentration risk analysis
+from SEC filings. Higher score = more diversified (less concentration risk).
+**Applicability:** US-listed (SEC data).
+
+### `crypto`
+Cryptocurrency exposure analysis for companies with blockchain / crypto
+business lines.
+**Applicability:** Tech / Financial Services sectors plus a crypto-aliased
+sector list, scoped to a curated symbol allowlist.
 
 ### `earnings`
-Measures the strength and trajectory of reported earnings — beats vs.
-expectations, analyst revision direction, quality of earnings. A high score
-indicates strong, improving earnings.
+Quarterly results, guidance changes, and earnings surprises. Higher score =
+stronger / improving earnings posture.
 
 ### `esg`
-Measures environmental, social, and governance signals as reported in public
-filings and third-party data. A high score indicates favorable ESG
-positioning. A score of `0` typically means ESG data is not available for
-this ticker.
+Environmental, social, and governance risk factors. Higher score = more
+favorable ESG positioning. A score of `0` typically means ESG data is not
+available for the ticker.
+
+### `fundamentals`
+Company revenue growth, margins, and financial health. Higher score = stronger
+underlying financial profile.
+
+### `geopolitical`
+Trade policy exposure, sanctions risk, and global tensions. Higher score =
+less geopolitical pressure on the stock.
+**Applicability:** required computation for US-listed Chinese ADRs (TSM,
+BABA, BIDU, JD, NIO, XPEV among others); applies broadly to
+geopolitically-exposed names.
+
+> *Note for users coming from earlier (≤0.1.x) releases:* `geopolitical`
+> subsumes the prior `us_china_official` and `us_china_unofficial` axes.
+> Skills should treat `geopolitical` as the canonical replacement.
 
 ### `github-activity`
-Measures public open-source development activity associated with the company
-— commit cadence, contributor diversity, repo footprint. Most informative for
-software and infrastructure companies; less informative for non-tech firms.
+GitHub activity analysis including commit velocity, community engagement,
+and engineering output.
+**Applicability:** Tech / Communication Services sectors plus a curated
+~32-symbol allowlist. Most informative for software / infrastructure
+companies.
 
 ### `insider-trading`
-Measures recent insider transaction patterns — buying versus selling, by whom,
-and at what scale. A high score indicates favorable insider activity (net
-buying, or absence of unusual selling).
+Executive and director transaction patterns. Higher score = favorable
+insider activity (net buying or absence of unusual selling).
+**Applicability:** US-listed (SEC data).
 
 ### `institutional`
-Measures institutional ownership and recent institutional flows — ownership
-percentage, net share changes, buying pressure. A high score indicates
-supportive institutional positioning.
+SEC 13F analysis tracking institutional buying / selling, ownership
+concentration, and smart money flows. Higher score = supportive
+institutional positioning.
+**Applicability:** US-listed (13F data).
+
+### `job-market`
+Hiring velocity analysis tracking job postings, engineering focus, executive
+openings, and salary trends.
 
 ### `macro`
-Measures the company's exposure to macroeconomic conditions — rates,
-inflation, growth, currency. A high score indicates favorable macro tailwinds
-or low macro sensitivity.
+Interest rates, inflation, and economic growth signals. Higher score =
+favorable macro environment for this name.
 
 ### `management`
-Measures management quality and execution signals — track record, capital
-allocation, governance. A high score indicates favorable management signals.
+Executive quality analysis including tenure, track record, compensation
+alignment, and insider activity. Higher score = favorable management signals.
+
+### `microstructure`
+Bid-ask spreads, order flow, dark pool activity, and volume pattern
+analysis. Higher score = healthier trading microstructure.
+
+### `options-flow`
+Options data analysis including put / call ratios, unusual activity, and
+gamma squeeze potential. Higher score = options-market positioning skewed
+favorably.
+**Applicability:** US-listed.
 
 ### `patents`
-Measures the company's patent portfolio and recent IP activity — filing
-cadence, citations, technology breadth. A high score indicates a strong and
-defensible IP position.
+USPTO patent analysis tracking innovation velocity, R&D investment, and
+competitive IP position. Higher score = stronger / more defensible IP
+position.
+**Applicability:** US-listed; Tech / Healthcare / Industrials sectors.
 
 ### `regulatory`
-Measures the regulatory environment facing the company — pending rules, recent
-rulings, jurisdictional exposure. A high score indicates favorable or stable
-regulatory conditions.
+Regulatory scrutiny, legal exposure, and compliance pressure. Higher score =
+more favorable regulatory environment.
+**Applicability:** US-listed (SEC EDGAR).
+
+### `sentiment`
+Investor positioning, analyst outlook, and market mood. Higher score =
+broadly favorable sentiment.
+
+### `short-interest`
+FINRA short interest data, days to cover, squeeze potential, and borrow
+rates. Higher score = short-interest configuration favorable for the long
+side (e.g. low pressure or squeeze setup).
+**Applicability:** US-listed (FINRA).
 
 ### `supplychain`
-Measures supply-chain resilience and stress — input cost trajectory, freight
-indices, single-source vulnerabilities. A high score indicates a resilient
-supply chain. A low score flags inflationary or disruption pressure.
+Production dependencies and logistics risks. Higher score = resilient supply
+chain (less disruption / inflation pressure).
+**Applicability:** Tech / Industrials / Consumer Discretionary / Healthcare
+sectors.
 
-### `us_china_official`
-Measures geopolitical risk to the company arising from **official** US–China
-policy actions: tariffs, export controls, sanctions, formal restrictions. A
-high score indicates lower exposure or favorable conditions; a low score
-indicates active or worsening official pressure.
+### `technical`
+Price trends, momentum, and chart signals. Higher score = technically
+favorable setup.
 
-### `us_china_unofficial`
-Measures geopolitical risk arising from **unofficial** US–China dynamics:
-boycotts, informal procurement preferences, consumer sentiment, retaliatory
-business practices. A high score indicates lower exposure; a low score
-indicates active or worsening unofficial pressure.
+## Retired slugs
+
+Earlier releases of this repo (≤ v0.1.2) documented two slugs that have
+since been consolidated:
+
+- `us_china_official` → folded into `geopolitical`.
+- `us_china_unofficial` → folded into `geopolitical`.
+
+Skills should treat any historical reference to those slugs as equivalent to
+`geopolitical` for narrative purposes. If the live API still returns either
+slug for a particular ticker (legacy cached scores), skills should surface
+it under the original slug name without trying to remap on the fly — the
+cache will refresh.
 
 ## A note on UI vs. API
 
-The Haruspex web UI may display a subset of these dimensions on a stock's
-detail page (the most-relevant ones for that ticker), and may group or rename
-them for readability. The API always returns the canonical 16 with the slugs
-above. Skills should refer to dimensions by their API slug.
+The Haruspex web UI may display a subset of the 23 dimensions on a stock's
+detail page (the most-relevant ones for that ticker), and may group or
+rename them for readability. The API always returns the canonical slugs as
+listed above. Skills should refer to dimensions by their API slug.

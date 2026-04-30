@@ -143,7 +143,7 @@ Reference specific dimension changes. Do not predict price.]
 - [`examples.md`](examples.md) — example thesis evaluations using real
   data.
 - [`../../shared/DIMENSIONS.md`](../../shared/DIMENSIONS.md) — canonical
-  16-dimension glossary.
+  multi-dimension glossary.
 - [`../../shared/DISCLAIMER.md`](../../shared/DISCLAIMER.md) — disclaimer
   footer.
 - [`../../shared/MCP_SETUP.md`](../../shared/MCP_SETUP.md) — MCP install.
