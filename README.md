@@ -1,18 +1,39 @@
 # haruspex-skills
 
-**Anthropic Skills for stock traders, powered by Haruspex.**
+**An MCP server for stock analysis, plus Anthropic Skills that build on it — powered by Haruspex.**
 
-This repository packages a small, focused set of [Anthropic Agent Skills](https://github.com/anthropics/skills)
-that turn Claude into a stock-intelligence assistant. The skills wrap the
-Haruspex multi-dimension scoring system and ship the analysis workflows traders
-actually use day-to-day — single-ticker reads, watchlist scans, thesis
-checks, and a Japanese-language flagship variant.
+This repository contains **two things**:
 
-The skills depend on **`@haruspex-guru/mcp-server`** for live data. Without the MCP
-server installed, the skills will detect that, output install instructions,
-and stop — they will never fabricate analysis.
+1. **An MCP server** — [`@haruspex-guru/mcp-server`](mcp-server/), a [Model Context Protocol](https://modelcontextprotocol.io) server that exposes the Haruspex stock-analysis API as tools (`get_stock_score`, `get_stock_score_history`, `get_batch_scores`, `search_stocks`, `get_stock_news`). Its source and `Dockerfile` live in [`mcp-server/`](mcp-server/), and it is published to npm as [`@haruspex-guru/mcp-server`](https://www.npmjs.com/package/@haruspex-guru/mcp-server).
+2. **A set of [Anthropic Agent Skills](https://github.com/anthropics/skills)** (in [`skills/`](skills/)) that build structured trading workflows — single-ticker reads, watchlist scans, thesis checks, a Japanese-language variant — on top of that MCP server.
 
-## What's in this repo
+## MCP Server
+
+The MCP server lives in [`mcp-server/`](mcp-server/) and is published as [`@haruspex-guru/mcp-server`](https://www.npmjs.com/package/@haruspex-guru/mcp-server). It speaks the Model Context Protocol over stdio and exposes five tools:
+
+| Tool | Purpose |
+|------|---------|
+| `get_stock_score` | Latest Haruspex Score (0-100) for a ticker, with outlook, signal, dimensional breakdown, and shareable URL. |
+| `get_stock_score_history` | Daily historical scores for a ticker. |
+| `get_batch_scores` | Scores for up to 50 tickers in one call (watchlists). |
+| `search_stocks` | Find tickers by symbol or company name. |
+| `get_stock_news` | Recent news articles for a ticker. |
+
+Run it directly:
+
+```bash
+npx -y @haruspex-guru/mcp-server
+```
+
+Build from source (Docker):
+
+```bash
+docker build -t haruspex-mcp mcp-server/   # or build from repo root: docker build -t haruspex-mcp .
+```
+
+The server reads `HARUSPEX_API_KEY` at runtime for live data; get a key at https://haruspex.guru/settings. The Anthropic Skills below depend on this MCP server for their data — without it installed, the skills detect that, output install instructions, and stop; they will never fabricate analysis.
+
+## Skills in this repo
 
 | Skill | Purpose |
 |-------|---------|
