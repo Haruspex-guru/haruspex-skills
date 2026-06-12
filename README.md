@@ -187,10 +187,11 @@ them when revising any skill's `description` field. See
 
 ## License
 
-[MIT](LICENSE). The skills (instructions and examples in this repository)
-are MIT-licensed. The Haruspex scoring algorithm and underlying data are
-proprietary; access is governed by the
-[Haruspex API Terms of Service](https://haruspex.guru).
+[MIT](LICENSE). The MCP server and skills (instructions and examples in this
+repository) are MIT-licensed. The Haruspex scoring algorithm and underlying
+data are proprietary; access is governed by the
+[Haruspex API Terms of Service](https://haruspex.guru). See [NOTICE](NOTICE)
+for the full scope statement.
 
 ## Where this came from
 

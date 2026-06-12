@@ -1,0 +1,8 @@
+The MIT License in LICENSE applies to the contents of this repository — the
+MCP server source (mcp-server/) and the Skills (instructions, prompts, and
+example dialogues).
+
+The Haruspex scoring algorithm, proprietary data, and underlying methodology
+are NOT covered by that license and remain the property of Haruspex. Access to
+Haruspex data is governed by the Haruspex API Terms of Service at
+https://haruspex.guru.
