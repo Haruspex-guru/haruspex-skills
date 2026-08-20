@@ -60,10 +60,18 @@ the email. Two hard limits forced the split, both confirmed from the
 
 `ADOPTION_PAT` must be set as a repo secret: a fine-grained token with
 `Administration: read` (traffic), `Contents: write` and `Pull requests:
-write` (the snapshot PR). The Actions `GITHUB_TOKEN` is not a substitute —
-it is refused with 403 on the traffic endpoints (confirmed 2026-08-20),
-and a PR pushed with it does not trigger `validate-skills`, so the
-required check never reports and the PR can never merge.
+write` (the snapshot PR). The Actions `GITHUB_TOKEN` is not a substitute, for
+three separate reasons, all confirmed by dispatching the workflow on
+2026-08-20:
+
+1. It is refused `403 Forbidden` on both traffic endpoints.
+2. This repo has "Allow GitHub Actions to create and approve pull
+   requests" disabled, so `gh pr create` fails with `GitHub Actions is
+   not permitted to create or approve pull requests`. A PAT acts as its
+   owner rather than as Actions, so it is unaffected.
+3. A PR pushed with `GITHUB_TOKEN` does not trigger workflow runs, so
+   `validate-skills` would never report and the required check could
+   never be satisfied.
 
 Without the secret the job still succeeds: clones and views record as
 unavailable, and the PR is left open for a manual merge.
