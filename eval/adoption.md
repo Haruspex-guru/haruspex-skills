@@ -38,12 +38,34 @@ A weak but real proxy: people only file issues against tools they use.
 Track open issue count and external (non-maintainer) PR count over time
 in the GitHub Insights → Contributors view.
 
-## How to use this doc
+## How this is collected
 
-Once a month, paste the four numbers into a row in a running log
-(spreadsheet, Notion, whatever). The deltas matter, not the absolutes.
-A negative delta on npm weekly downloads + flat clones is the early
-warning that something regressed.
+`.github/workflows/adoption-snapshot.yml` runs every Monday at 05:00 UTC
+and appends a snapshot to `adoption-log.md`, with the numbers themselves
+in `adoption-data.json`. Deltas are computed from the JSON — do not parse
+the markdown for last week's values.
+
+Collection runs in GitHub Actions rather than in the `haruspex-adoption-
+weekly-snapshot` Claude routine, which fires an hour later and only sends
+the email. Two hard limits forced the split, both confirmed from the
+2026-08-17 run log:
+
+- The routine's sandbox blocks `api.npmjs.org` at the egress proxy
+  (`EGRESS_BLOCKED`), so download counts are unreachable from there.
+  `registry.npmjs.org` is allowed, which is why version lookups worked
+  and download counts did not.
+- The traffic endpoints require `Administration: read`. A GitHub App's
+  permission set is fixed by its author, so the Claude app installed on
+  the org cannot be granted it.
+
+Traffic needs `ADOPTION_PAT` set as a repo secret — a fine-grained token
+with `Administration: read` and `Contents: read`. Without it the workflow
+still runs and records those two cells as unavailable.
+
+The deltas matter, not the absolutes. A negative delta on npm weekly
+downloads + flat clones is the early warning that something regressed —
+but on the current base a single week's npm swing is noise, so read a run
+of several weeks before concluding anything.
 
 ## What this doc is not
 
