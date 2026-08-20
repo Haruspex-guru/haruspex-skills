@@ -73,8 +73,12 @@ three separate reasons, all confirmed by dispatching the workflow on
    `validate-skills` would never report and the required check could
    never be satisfied.
 
-Without the secret the job still succeeds: clones and views record as
-unavailable, and the PR is left open for a manual merge.
+Without the secret the job still succeeds, but it cannot land anything:
+it collects the numbers, writes a warning and a diff to the run summary,
+and exits without opening a PR. Nothing is recorded that week. The run is
+deliberately green — a missing secret is a configuration state, not a
+build failure, and a red X every Monday only teaches everyone to stop
+reading the badge.
 
 The deltas matter, not the absolutes. A negative delta on npm weekly
 downloads + flat clones is the early warning that something regressed —
