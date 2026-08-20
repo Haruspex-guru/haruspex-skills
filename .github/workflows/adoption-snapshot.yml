@@ -1,0 +1,42 @@
+name: adoption-snapshot
+
+# Collection lives here rather than in the Claude cloud routine because that
+# sandbox blocks api.npmjs.org at the egress proxy, and its GitHub App token
+# cannot carry the Administration:read that the traffic endpoints need.
+# The routine still sends the Monday email; it reads what this job commits.
+
+on:
+  schedule:
+    - cron: '0 5 * * 1'   # Mondays 05:00 UTC, an hour before the routine
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Collect snapshot
+        env:
+          # GITHUB_TOKEN is not guaranteed to satisfy the traffic endpoints.
+          # Set ADOPTION_PAT (fine-grained, Administration:read + Contents:read
+          # on this repo) to make clones/views reliable; without it those two
+          # cells record as unavailable and the rest of the run still succeeds.
+          ADOPTION_PAT: ${{ secrets.ADOPTION_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 eval/scripts/adoption_snapshot.py
+
+      - name: Commit
+        run: |
+          if git diff --quiet -- eval/adoption-data.json eval/adoption-log.md; then
+            echo "No change — snapshot for today already recorded."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add eval/adoption-data.json eval/adoption-log.md
+          git commit -m "docs(eval): adoption snapshot $(date -u +%Y-%m-%d)"
+          git push
