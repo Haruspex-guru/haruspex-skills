@@ -38,10 +38,34 @@ jobs:
 
       - name: Open PR
         env:
-          GH_TOKEN: ${{ secrets.ADOPTION_PAT || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ADOPTION_PAT }}
+          HAVE_PAT: ${{ secrets.ADOPTION_PAT != '' }}
         run: |
           if git diff --quiet -- eval/adoption-data.json eval/adoption-log.md; then
             echo "No change — snapshot for today already recorded."
+            exit 0
+          fi
+          # Without the PAT there is no way to land this: Actions is barred
+          # from opening PRs here, and a GITHUB_TOKEN PR never triggers the
+          # validate-skills that main requires. Say so and stop — a missing
+          # secret is a configuration state, not a build failure, and a red
+          # X every Monday just teaches everyone to ignore the badge.
+          if [ "$HAVE_PAT" != "true" ]; then
+            {
+              echo "### Adoption snapshot collected, not committed"
+              echo
+              echo "\`ADOPTION_PAT\` is not set, so this run could not open its PR."
+              echo "The numbers below were gathered but discarded."
+              echo
+              echo "Set a fine-grained PAT with **Administration: read**,"
+              echo "**Contents: write**, **Pull requests: write** on this repo,"
+              echo "then re-run. See \`eval/adoption.md\`."
+              echo
+              echo '```'
+              git --no-pager diff --stat -- eval/adoption-data.json eval/adoption-log.md
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::warning title=ADOPTION_PAT not set::Snapshot collected but not committed; no PR opened."
             exit 0
           fi
           DATE=$(date -u +%Y-%m-%d)
