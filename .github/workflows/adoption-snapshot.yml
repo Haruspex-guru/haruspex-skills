@@ -12,31 +12,50 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   snapshot:
     runs-on: ubuntu-latest
     steps:
+      # Check out with the PAT when we have one, so the PR this job opens
+      # triggers validate-skills. A PR pushed with GITHUB_TOKEN does not
+      # start workflow runs, so its required check would never report and
+      # the PR could never merge.
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ADOPTION_PAT || secrets.GITHUB_TOKEN }}
 
       - name: Collect snapshot
         env:
-          # GITHUB_TOKEN is not guaranteed to satisfy the traffic endpoints.
-          # Set ADOPTION_PAT (fine-grained, Administration:read + Contents:read
-          # on this repo) to make clones/views reliable; without it those two
-          # cells record as unavailable and the rest of the run still succeeds.
+          # ADOPTION_PAT is required for clones/views: the traffic endpoints
+          # need Administration:read, and the Actions GITHUB_TOKEN is refused
+          # with 403 (confirmed 2026-08-20). Without the secret the job still
+          # succeeds and records those two cells as unavailable.
           ADOPTION_PAT: ${{ secrets.ADOPTION_PAT }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 eval/scripts/adoption_snapshot.py
 
-      - name: Commit
+      - name: Open PR
+        env:
+          GH_TOKEN: ${{ secrets.ADOPTION_PAT || secrets.GITHUB_TOKEN }}
         run: |
           if git diff --quiet -- eval/adoption-data.json eval/adoption-log.md; then
             echo "No change — snapshot for today already recorded."
             exit 0
           fi
+          DATE=$(date -u +%Y-%m-%d)
+          BRANCH="adoption-snapshot-${DATE}"
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
           git add eval/adoption-data.json eval/adoption-log.md
-          git commit -m "docs(eval): adoption snapshot $(date -u +%Y-%m-%d)"
-          git push
+          git commit -m "docs(eval): adoption snapshot ${DATE}"
+          git push -u origin "$BRANCH"
+          gh pr create --base main --head "$BRANCH" \
+            --title "adoption snapshot ${DATE}" \
+            --body "Automated weekly snapshot. Numbers in \`eval/adoption-data.json\`; rendered entry in \`eval/adoption-log.md\`. Cells reading \"unavailable\" mean the fetch failed — see this run's log."
+          # main requires a PR plus a passing validate-skills, so queue the
+          # merge rather than pushing straight at it.
+          gh pr merge --squash --auto --delete-branch || \
+            echo "Auto-merge unavailable — PR left open for manual merge."

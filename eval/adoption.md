@@ -58,9 +58,15 @@ the email. Two hard limits forced the split, both confirmed from the
   permission set is fixed by its author, so the Claude app installed on
   the org cannot be granted it.
 
-Traffic needs `ADOPTION_PAT` set as a repo secret — a fine-grained token
-with `Administration: read` and `Contents: read`. Without it the workflow
-still runs and records those two cells as unavailable.
+`ADOPTION_PAT` must be set as a repo secret: a fine-grained token with
+`Administration: read` (traffic), `Contents: write` and `Pull requests:
+write` (the snapshot PR). The Actions `GITHUB_TOKEN` is not a substitute —
+it is refused with 403 on the traffic endpoints (confirmed 2026-08-20),
+and a PR pushed with it does not trigger `validate-skills`, so the
+required check never reports and the PR can never merge.
+
+Without the secret the job still succeeds: clones and views record as
+unavailable, and the PR is left open for a manual merge.
 
 The deltas matter, not the absolutes. A negative delta on npm weekly
 downloads + flat clones is the early warning that something regressed —
