@@ -22,7 +22,7 @@ jobs:
       # triggers validate-skills. A PR pushed with GITHUB_TOKEN does not
       # start workflow runs, so its required check would never report and
       # the PR could never merge.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           token: ${{ secrets.ADOPTION_PAT || secrets.GITHUB_TOKEN }}
 
